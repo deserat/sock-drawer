@@ -45,6 +45,7 @@ var io = io.listen(server);
 io.on('connection', function(client){
 	console.log('Client Connected');
 	client.on('message', function(message){
+        console.log(message);
 		client.broadcast(message);
 		client.send(message);
 	});
