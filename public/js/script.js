@@ -12,17 +12,6 @@ $(document).ready(function(){
     canvas = $("canvas")[0]
     ctx = canvas.getContext('2d');
 	
-	io.setPath('/js/socket.io/');
-	socket = new io.Socket('127.0.0.1', {rememberTransport: false, port: 8081 });
-
-	socket.connect();
-
-	socket.on('message', function(data){
-    	console.log(data);
-    	var obj = JSON.parse(data);
-    	ctx.lineTo(obj.x,obj.y);
-    	ctx.stroke(); 
-	});
 });
 
 

@@ -212,9 +212,18 @@ button {  width: auto; overflow: visible; }
 
 
  /* Primary Styles
-    Author: 
+    Author:  Vance Dubberly
  */
 
+canvas#draw-space {
+    width:400px;
+    height:400px;
+    border:1px solid #000;
+}
+
+canvas#draw-space:hover {
+    cursor:crosshair;
+}
 
 
 
