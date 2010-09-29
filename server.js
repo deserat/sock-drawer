@@ -15,6 +15,10 @@ process.addListener('uncaughtException', function (err, stack) {
 });
 
 
+
+
+console.log(bayeux);
+
 var server = http.createServer(function(request, response) {
     var file = new static.Server('./public', {
       cache: false
@@ -25,6 +29,10 @@ var server = http.createServer(function(request, response) {
     }); 
 
 });
+
+
+
+var bayeux = faye.NodeAdapter({ mount:'/faye' , timeout: 45 }).attach( server );
 
 
 server.listen(8000);
