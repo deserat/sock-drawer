@@ -17,7 +17,6 @@ process.addListener('uncaughtException', function (err, stack) {
 
 
 
-console.log(bayeux);
 
 var server = http.createServer(function(request, response) {
     var file = new static.Server('./public', {
@@ -32,7 +31,8 @@ var server = http.createServer(function(request, response) {
 
 
 
-var bayeux = faye.NodeAdapter({ mount:'/faye' , timeout: 45 }).attach( server );
+//var bayeux = faye.NodeAdapter({ mount:'/faye' , timeout: 45 }).attach( server );
+//console.log(bayeux);
 
 
 server.listen(8000);

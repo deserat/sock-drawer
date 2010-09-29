@@ -6,42 +6,44 @@
 var canvas;
 var ctx;
 var socket;
+var events = [];
 
-$(document).ready(function(){
+dojo.addOnLoad( function(e){
     // set up canvas instance
-    canvas = $("canvas")[0]
+    canvas = dojo.byId('draw-space');
     ctx = canvas.getContext('2d');
-	
-});
+    console.log('load');
 
 
-$("canvas").mouseover( function (e) {
+dojo.connect(canvas,'mouseover', function (e) {
     console.log("enter canvas");
     console.log(e);
 });
 
-$("canvas").mousedown( function (e) {
+dojo.connect(canvas, 'mousedown', function (e) {
     ctx.beginPath();  
     ctx.moveTo(e.clientX,e.clientY);
-    $("canvas").mousemove(function (e) {
-       ctx.lineTo(e.clientX,e.clientY);
+    events['paint'] = dojo.connect(canvas, 'mousemove', function (e) {
+       ctx.lineTo(e.pageX,e.pageY);
        ctx.stroke(); 
-       send({"x":e.clientX,"y":e.clientY });
+       //send({"x":e.clientX,"y":e.clientY });
     });
+    console.log(events);
 });
 
 
-$("canvas").mouseup( function (e) {
-    $("canvas").unbind('mousemove');
+dojo.connect(canvas,'mouseup', function (e) {
+    dojo.disconnect(events['paint']);
 });
 
 // when mouse leaves canvas unbind the move event
-$("canvas").mouseout( function (e) {
-    $("canvas").unbind('mousemove');
+dojo.connect(canvas,'mouseout', function (e) {
+    dojo.disconnect(events['paint']);
 
 });
 
 
+});
 
 
 function send(data){

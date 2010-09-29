@@ -216,8 +216,8 @@ button {  width: auto; overflow: visible; }
  */
 
 canvas#draw-space {
-    width:400px;
-    height:400px;
+    width:720px;
+    height:480px;
     border:1px solid #000;
 }
 
