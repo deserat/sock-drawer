@@ -2,7 +2,7 @@ require.paths.unshift(__dirname + "/vendor");
 
 var http = require('http'),
     sys  = require('sys'),
-    static = require('node-static/lib/node-static'),
+    stat = require('node-static/lib/node-static'),
     faye = require('faye-node');
 
 
@@ -17,9 +17,8 @@ process.addListener('uncaughtException', function (err, stack) {
 
 
 
-
 var server = http.createServer(function(request, response) {
-    var file = new static.Server('./public', {
+    var file = new stat.Server('./public', {
       cache: false
     });
 
@@ -30,9 +29,14 @@ var server = http.createServer(function(request, response) {
 });
 
 
-
-//var bayeux = faye.NodeAdapter({ mount:'/faye' , timeout: 45 }).attach( server );
-//console.log(bayeux);
-
-
 server.listen(8000);
+
+var bayeux = new faye.NodeAdapter({ mount:'/faye' , timeout: 45 });
+
+bayeux.attach( server );
+
+
+
+
+
+

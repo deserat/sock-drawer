@@ -8,9 +8,10 @@ var coords;
 var ctx;
 var socket;
 var events = [];
-var draw_position = {x:0,y:0};
+var client;
+var myId;
 
-
+MOUNT_POINT = 'http://192.168.1.102/faye';
 
 
 function drawPosition(x,y) { return { x: x - coords.l, y: y - coords.t }; }
@@ -19,10 +20,21 @@ dojo.addOnLoad( function(e){
     // set up canvas instance
     canvas = dojo.byId('draw-space');
     ctx = canvas.getContext('2d');
-    console.log('load');
 
     coords = dojo.coords(canvas);
 
+    myId = Math.floor(Math.random()*11)
+    console.log(myId);
+
+    client = new Faye.Client(MOUNT_POINT, {timeout:240});
+
+    var subscription = client.subscribe('/draw', function(m) {
+        if ( m.user != myId ) {
+            ctx.lineTo(m.x,m.y);
+            ctx.stroke();
+
+        }
+    });
 
 dojo.connect(canvas,'mouseover', function (e) {
     console.log("enter canvas");
@@ -40,7 +52,7 @@ dojo.connect(canvas, 'mousedown', function (e) {
        p = drawPosition(e.pageX, e.pageY);
        ctx.lineTo(p.x,p.y);
        ctx.stroke(); 
-       //send({"x":e.clientX,"y":e.clientY });
+       client.publish('/draw', {user:myId,x:p.x,y:p.y});
     });
     console.log(events);
 });
@@ -58,21 +70,6 @@ dojo.connect(canvas,'mouseout', function (e) {
 
 
 });
-
-
-
-function send(data){
-    socket.send(JSON.stringify(data));
-}
-
-
-
-
-
-
-
-
-
 
 
 
