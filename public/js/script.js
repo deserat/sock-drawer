@@ -4,15 +4,24 @@
 */
 
 var canvas;
+var coords;
 var ctx;
 var socket;
 var events = [];
+var draw_position = {x:0,y:0};
+
+
+
+
+function drawPosition(x,y) { return { x: x - coords.l, y: y - coords.t }; }
 
 dojo.addOnLoad( function(e){
     // set up canvas instance
     canvas = dojo.byId('draw-space');
     ctx = canvas.getContext('2d');
     console.log('load');
+
+    coords = dojo.coords(canvas);
 
 
 dojo.connect(canvas,'mouseover', function (e) {
@@ -21,10 +30,15 @@ dojo.connect(canvas,'mouseover', function (e) {
 });
 
 dojo.connect(canvas, 'mousedown', function (e) {
-    ctx.beginPath();  
-    ctx.moveTo(e.clientX,e.clientY);
+
+    var p =  drawPosition(e.pageX, e.pageY);
+    
+    ctx.beginPath(); 
+    ctx.moveTo(p.x, p.y);
+
     events['paint'] = dojo.connect(canvas, 'mousemove', function (e) {
-       ctx.lineTo(e.pageX,e.pageY);
+       p = drawPosition(e.pageX, e.pageY);
+       ctx.lineTo(p.x,p.y);
        ctx.stroke(); 
        //send({"x":e.clientX,"y":e.clientY });
     });
@@ -44,6 +58,7 @@ dojo.connect(canvas,'mouseout', function (e) {
 
 
 });
+
 
 
 function send(data){
