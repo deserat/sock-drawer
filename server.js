@@ -29,12 +29,12 @@ var server = http.createServer(function(request, response) {
 });
 
 
-server.listen(8000);
 
-var bayeux = new faye.NodeAdapter({ mount:'/faye' , timeout: 45 });
+var bayeux = new faye.NodeAdapter({ mount:'/drawer' , timeout: 45 });
 
 bayeux.attach( server );
 
+server.listen(8000);
 
 
 
