@@ -45,6 +45,51 @@
     
     <div id="main">
         <canvas id="draw-space" width="720px" height="480px"></canvas>
+        <div>
+            <form>
+            <select name="size" id="size" class="brush_setter">
+                <option value="1" >Fine</option> 
+                <option value="5" selected='selected'>Medium</option> 
+                <option value="10">Large</option> 
+                <option value="50">Big Ol' Size</option> 
+            </select>
+            <select name="color" id="color" class="brush_setter">
+                <option value="255,0,0">Red</option> 
+                <option value="0,255,0">Green</option> 
+                <option value="0,0,255">Blue</option> 
+                <option value="0,0,0" selected="selected">Black</option> 
+                <option value="255,255,255">White</option> 
+            </select>
+            <select name="opacity" id="opacity" class="brush_setter">
+                <option value="0">0</option> 
+                <option value=".1">10%</option> 
+                <option value=".2">20%</option> 
+                <option value=".3">30%</option> 
+                <option value=".4">40%</option> 
+                <option value=".5">50%</option> 
+                <option value=".6">60%</option> 
+                <option value=".7">70%</option> 
+                <option value=".8">80%</option> 
+                <option value=".9">90%</option> 
+                <option value="1" selected="selected">100%</option> 
+            </select>
+            <select name="lineCap" id="lineCap" class="brush_setter">
+                <option value="round" selected="selected">Round</option> 
+                <option value="square">Square</option> 
+                <option value="butt">Butthead</option> 
+            </select>
+            <select name="lineJoin" id="lineJoin" class="brush_setter">
+                <option value="round" selected="selected">Round</option> 
+                <option value="bevel">Bevel</option> 
+                <option value="miter">Miter</option> 
+            </select>
+            <select name="stroke" id="stroke" class="brush_setter">
+                <option value="line" selected="selected">Line</option> 
+                <option value="spines">Spines</option> 
+                <option value="dots">Dots</option> 
+            </select>
+            </form>
+        </div>
     </div>
     
     <footer>
